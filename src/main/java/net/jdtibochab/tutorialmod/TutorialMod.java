@@ -41,7 +41,7 @@ public class TutorialMod
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties().tab(CreativeModeTab.TAB_BUILDING_BLOCKS)));
 
     public TutorialMod()
-            // Add
+            // Test
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
