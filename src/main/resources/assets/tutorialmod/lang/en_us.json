@@ -1,0 +1,22 @@
+{
+  "item.tutorialmod.citrine": "Citrine",
+  "item.tutorialmod.raw_citrine": "Raw Citrine",
+  "item.tutorialmod.eight_ball": "Eight Ball",
+  "item.tutorialmod.blueberry": "Blueberry",
+  "item.tutorialmod.blueberry_seeds": "Blueberry Seeds",
+  "item.tutorialmod.sanic_spawn_egg": "Sanic Creeper Spawn Egg",
+
+  "block.tutorialmod.citrine_block": "Citrine Block",
+  "block.tutorialmod.raw_citrine_block": "Raw Citrine Block",
+  "block.tutorialmod.citrine_ore": "Citrine Ore",
+  "block.tutorialmod.deepslate_citrine_ore": "Deepslate Citrine Ore",
+  "block.tutorialmod.netherrack_citrine_ore": "Netherrack Citrine Ore",
+  "block.tutorialmod.endstone_citrine_ore": "Endstone Citrine Ore",
+  "block.tutorialmod.jumpy_block": "Jumpy Block",
+  "block.tutorialmod.zircon_lamp": "Zircon Lamp",
+  "block.tutorialmod.blueberry_crop": "Blueberry Crop",
+
+  "itemGroup.tutorialtab": "Tutorial Mod",
+  "entity.minecraft.villager.tutorialmod.jumpy_master": "Jumpy Master",
+  "entity.tutorialmod.sanic_creeper": "Sanic Creeper"
+}
