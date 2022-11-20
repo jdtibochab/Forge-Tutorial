@@ -1,0 +1,13 @@
+{
+  "entity.revengemod.sanic_creeper": "Sanic Creeper",
+  "entity.revengemod.nuclear_creeper": "Nuclear Creeper",
+  "entity.revengemod.ultimate_creeper": "Ultimate Creeper",
+  "entity.revengemod.sniper_skeleton": "Sniper Skeleton",
+  "entity.revengemod.face_hugger": "Face Hugger",
+
+  "item.revengemod.sanic_creeper_spawn_egg": "Sanic Creeper Spawn Egg",
+  "item.revengemod.nuclear_creeper_spawn_egg": "Nuclear Creeper Spawn Egg",
+  "item.revengemod.ultimate_creeper_spawn_egg": "Ultimate Creeper Spawn Egg",
+  "item.revengemod.sniper_skeleton_spawn_egg": "Sniper Skeleton Spawn Egg",
+  "item.revengemod.face_hugger_spawn_egg": "Face Hugger Spawn Egg"
+}
