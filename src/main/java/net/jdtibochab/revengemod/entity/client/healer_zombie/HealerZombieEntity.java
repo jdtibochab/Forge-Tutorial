@@ -4,6 +4,7 @@ package net.jdtibochab.revengemod.entity.client.healer_zombie;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 
@@ -28,6 +29,7 @@ public class HealerZombieEntity extends Zombie implements RangedAttackMob {
     }
     public static AttributeSupplier setAttributes() {
         return Zombie.createAttributes()
+                .add(Attributes.FOLLOW_RANGE, 10.0D)
                 .build();
     }
     @Override
@@ -43,20 +45,19 @@ public class HealerZombieEntity extends Zombie implements RangedAttackMob {
         this.goalSelector.addGoal(6, new MoveThroughVillageGoal(this, 1.0D, true, 4, this::canBreakDoors));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers(ZombifiedPiglin.class));
-        this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, Monster.class, true));
-        this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, AbstractVillager.class, true));
-        this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, IronGolem.class, true));
+        this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, Monster.class, true,false));
+        this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, AbstractVillager.class, true,false));
+        this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, IronGolem.class, true,false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
-
+        this.targetSelector.addGoal(4, new NearestHealableTargetGoal<>(this, Monster.class, true,true));
     }
 
-    @Override
-    public void aiStep() {
-        super.aiStep();
-    }
 
     @Override
     public void performRangedAttack(LivingEntity pTarget, float pVelocity) {
+        if (pTarget instanceof Monster && pTarget.getHealth()/pTarget.getMaxHealth() > 0.99f) {
+            return;
+        }
         // Track target
         Vec3 vec3 = pTarget.getDeltaMovement();
         double d0 = pTarget.getX() + vec3.x - this.getX();

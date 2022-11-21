@@ -9,29 +9,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raider;
 
 public class NearestHealableTargetGoal<T extends LivingEntity> extends NearestAttackableTargetGoal<T> {
-
-    public NearestHealableTargetGoal(Mob pMob, Class pTargetType, boolean pMustSee) {
+    private boolean only_follow;
+    public NearestHealableTargetGoal(Mob pMob, Class pTargetType, boolean pMustSee, boolean only_follow) {
         super(pMob, pTargetType, pMustSee);
-    }
-    /**
-     * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-     * method as well.
-     */
-    @Override
-    public boolean canUse() {
-        return super.canUse();
+        this.only_follow = only_follow;
     }
 
     @Override
     public boolean canContinueToUse() {
         super.canContinueToUse();
-        if (this.target.getHealth() / this.target.getMaxHealth() > 0.99f) {
+        if (!only_follow && this.target.getHealth() / this.target.getMaxHealth() > 0.99f
+                || only_follow && this.target instanceof HealerZombieEntity) {
             return false;
         } else {
             return true;
         }
     }
-
     @Override
     protected void findTarget() {
         this.target = this.mob.level.getNearestEntity(
@@ -43,14 +36,11 @@ public class NearestHealableTargetGoal<T extends LivingEntity> extends NearestAt
                 this.mob.getEyeY(),
                 this.mob.getZ()
         );
-        if (this.target != null && this.target.getHealth() / this.target.getMaxHealth() > 0.99f) {
+        if (this.target != null){
+            if (!only_follow && this.target.getHealth() / this.target.getMaxHealth() > 0.99f
+                    || only_follow && this.target instanceof HealerZombieEntity){
                 this.target = null;
+            }
         }
-    }
-    /**
-     * Execute a one shot task or start executing a continuous task
-     */
-    public void start() {
-        super.start();
     }
 }
