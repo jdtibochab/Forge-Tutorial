@@ -4,8 +4,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.CreeperModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Creeper;
 
-public class UltimateCreeperModel extends CreeperModel {
+public class UltimateCreeperModel<T extends Creeper> extends CreeperModel<Creeper> {
     public UltimateCreeperModel(ModelPart pRoot) {
         super(pRoot);
     }

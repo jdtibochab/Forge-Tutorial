@@ -31,6 +31,10 @@ public class UltimateCreeperRenderer extends MobRenderer<Creeper, CreeperModel<C
         f *= f;
         float f2 = (1.0F + f * 0.4F) * f1;
         float f3 = (1.0F + f * 0.1F) / f1;
+
+        float mutant_factor = 1.5f;
+        f2*=mutant_factor;
+        f3*=mutant_factor;
         pMatrixStack.scale(f2, f3, f2);
     }
 

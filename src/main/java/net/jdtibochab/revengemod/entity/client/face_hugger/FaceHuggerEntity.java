@@ -43,7 +43,7 @@ public class FaceHuggerEntity extends Spider implements PowerableMob {
     private int oldSwell;
     private int swell;
     private int maxSwell = 10;
-    private int explosionRadius = 1;
+    private int explosionRadius = 2;
     private int droppedSkulls;
 
     public FaceHuggerEntity(EntityType<? extends Spider> pEntityType, Level pLevel) {

@@ -3,7 +3,7 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": {
     "type": "revengemod:sniper_skeleton",
-    "weight": 10,
+    "weight": 1,
     "minCount": 1,
     "maxCount": 3
   }

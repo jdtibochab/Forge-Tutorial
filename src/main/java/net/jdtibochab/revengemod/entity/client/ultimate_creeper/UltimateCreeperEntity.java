@@ -69,14 +69,9 @@ public class UltimateCreeperEntity extends Creeper implements PowerableMob {
     public static AttributeSupplier setAttributes() {
         return Creeper.createAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.75D)
-                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.MAX_HEALTH, 60.0D)
                 .add(Attributes.FOLLOW_RANGE,100.0D)
                 .build();
-    }
-
-    @Override
-    public void knockback(double pStrength, double pX, double pZ) {
-        return;
     }
 
     /**
@@ -94,6 +89,11 @@ public class UltimateCreeperEntity extends Creeper implements PowerableMob {
         }
 
         return flag;
+    }
+
+    @Override
+    public void knockback(double pStrength, double pX, double pZ) {
+        super.knockback(pStrength, pX, pZ);
     }
 
     protected void defineSynchedData() {
