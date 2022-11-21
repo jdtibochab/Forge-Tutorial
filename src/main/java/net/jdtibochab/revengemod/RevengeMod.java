@@ -3,6 +3,7 @@ package net.jdtibochab.revengemod;
 import com.mojang.logging.LogUtils;
 import net.jdtibochab.revengemod.entity.ModEntityTypes;
 import net.jdtibochab.revengemod.entity.client.face_hugger.FaceHuggerRenderer;
+import net.jdtibochab.revengemod.entity.client.healer_zombie.HealerZombieRenderer;
 import net.jdtibochab.revengemod.entity.client.nuclear_creeper.NuclearCreeperRenderer;
 import net.jdtibochab.revengemod.entity.client.sanic_creeper.SanicCreeperRenderer;
 import net.jdtibochab.revengemod.entity.client.sniper_skeleton.SniperSkeletonRenderer;
@@ -64,6 +65,10 @@ public class RevengeMod
             SpawnPlacements.register(ModEntityTypes.ULTIMATE_CREEPER.get(),
                     SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMonsterSpawnRules);
+
+            SpawnPlacements.register(ModEntityTypes.HEALER_ZOMBIE.get(),
+                    SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                    Monster::checkMonsterSpawnRules);
         });
     }
 
@@ -76,6 +81,7 @@ public class RevengeMod
             EntityRenderers.register(ModEntityTypes.ULTIMATE_CREEPER.get(), UltimateCreeperRenderer::new);
             EntityRenderers.register(ModEntityTypes.SNIPER_SKELETON.get(), SniperSkeletonRenderer::new);
             EntityRenderers.register(ModEntityTypes.FACE_HUGGER.get(), FaceHuggerRenderer::new);
+            EntityRenderers.register(ModEntityTypes.HEALER_ZOMBIE.get(), HealerZombieRenderer::new);
         }
     }
 }

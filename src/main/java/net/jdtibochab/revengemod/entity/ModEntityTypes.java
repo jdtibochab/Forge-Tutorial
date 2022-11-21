@@ -2,6 +2,7 @@ package net.jdtibochab.revengemod.entity;
 
 import net.jdtibochab.revengemod.RevengeMod;
 import net.jdtibochab.revengemod.entity.client.face_hugger.FaceHuggerEntity;
+import net.jdtibochab.revengemod.entity.client.healer_zombie.HealerZombieEntity;
 import net.jdtibochab.revengemod.entity.client.nuclear_creeper.NuclearCreeperEntity;
 import net.jdtibochab.revengemod.entity.client.nuclear_creeper.NuclearCreeperRenderer;
 import net.jdtibochab.revengemod.entity.client.sanic_creeper.SanicCreeperEntity;
@@ -42,6 +43,11 @@ public class ModEntityTypes {
                 ENTITY_TYPES.register("face_hugger",
                         () -> EntityType.Builder.of(FaceHuggerEntity::new, MobCategory.MONSTER)
                                 .build(new ResourceLocation(RevengeMod.MOD_ID, "face_hugger").toString()));
+
+    public static final RegistryObject<EntityType<HealerZombieEntity>> HEALER_ZOMBIE =
+                ENTITY_TYPES.register("healer_zombie",
+                        () -> EntityType.Builder.of(HealerZombieEntity::new, MobCategory.MONSTER)
+                                .build(new ResourceLocation(RevengeMod.MOD_ID, "healer_zombie").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

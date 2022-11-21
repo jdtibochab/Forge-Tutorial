@@ -35,6 +35,10 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntityTypes.ULTIMATE_CREEPER, 0x22b341,0x19732e,
                     new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+    public static final RegistryObject<Item> HEALER_ZOMBIE_SPAWN_EGG = ITEMS.register("healer_zombie_spawn_egg",
+            () -> new ForgeSpawnEggItem(ModEntityTypes.HEALER_ZOMBIE, 0x22b341,0x19732e,
+                    new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
