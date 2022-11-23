@@ -73,16 +73,9 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
         return Creeper.createAttributes()
                 .add(Attributes.MOVEMENT_SPEED, 0.1f)
                 .add(Attributes.MAX_HEALTH, 1000.0D)
-                .add(Attributes.FOLLOW_RANGE,150.0D)
+                .add(Attributes.FOLLOW_RANGE,256.0D)
                 .build();
     }
-    /**
-     * The maximum height from where the entity is alowed to jump (used in pathfinder)
-     */
-    public int getMaxFallDistance() {
-        return this.getTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
-    }
-
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
         boolean flag = super.causeFallDamage(pFallDistance, pMultiplier, pSource);
         this.swell += (int) (pFallDistance * 1.5F);
@@ -161,39 +154,6 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
         super.tick();
     }
 
-    /**
-     * Sets the active target the Goal system uses for tracking
-     */
-    public void setTarget(@Nullable LivingEntity pTarget) {
-        if (!(pTarget instanceof Goat)) {
-            super.setTarget(pTarget);
-        }
-    }
-
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.CREEPER_HURT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.CREEPER_DEATH;
-    }
-
-    protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
-        super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
-        Entity entity = pSource.getEntity();
-        if (entity != this && entity instanceof net.minecraft.world.entity.monster.Creeper creeper) {
-            if (creeper.canDropMobsSkull()) {
-                creeper.increaseDroppedSkulls();
-                this.spawnAtLocation(Items.CREEPER_HEAD);
-            }
-        }
-
-    }
-
-    public boolean doHurtTarget(Entity pEntity) {
-        return true;
-    }
-
     public boolean isPowered() {
         return this.entityData.get(DATA_IS_POWERED);
     }
@@ -222,24 +182,6 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
         super.thunderHit(pLevel, pLightning);
         this.entityData.set(DATA_IS_POWERED, true);
     }
-
-    protected InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-        if (itemstack.is(Items.FLINT_AND_STEEL)) {
-            this.level.playSound(pPlayer, this.getX(), this.getY(), this.getZ(), SoundEvents.FLINTANDSTEEL_USE, this.getSoundSource(), 1.0F, this.random.nextFloat() * 0.4F + 0.8F);
-            if (!this.level.isClientSide) {
-                this.ignite();
-                itemstack.hurtAndBreak(1, pPlayer, (p_32290_) -> {
-                    p_32290_.broadcastBreakEvent(pHand);
-                });
-            }
-
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
-        } else {
-            return super.mobInteract(pPlayer, pHand);
-        }
-    }
-
     /**
      * Creates an explosion as determined by this creeper's power and explosion radius.
      */
@@ -294,4 +236,5 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
     public void increaseDroppedSkulls() {
         ++this.droppedSkulls;
     }
+
 }

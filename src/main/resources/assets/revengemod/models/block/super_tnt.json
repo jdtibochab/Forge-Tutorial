@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "revengemod:block/super_tnt_bottom",
+    "side": "revengemod:block/super_tnt_side",
+    "top": "revengemod:block/super_tnt_top"
+  }
+}
