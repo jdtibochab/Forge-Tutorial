@@ -71,7 +71,7 @@ public class ModEntityTypes {
 
     public static final RegistryObject<EntityType<PrimedSuperTntEntity>> SUPER_TNT =
             ENTITY_TYPES.register("super_tnt",
-                    () -> EntityType.Builder.of(PrimedSuperTntEntity::new, MobCategory.MISC)
+                    () -> EntityType.Builder.<PrimedSuperTntEntity>of(PrimedSuperTntEntity::new, MobCategory.MISC)
                             .sized(0.98F, 0.98F)
                             .clientTrackingRange(10)
                             .updateInterval(10)
