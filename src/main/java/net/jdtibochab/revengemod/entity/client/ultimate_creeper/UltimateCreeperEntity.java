@@ -31,9 +31,9 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 
 public class UltimateCreeperEntity extends Creeper implements PowerableMob {
-    private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(Creeper.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> DATA_IS_POWERED = SynchedEntityData.defineId(Creeper.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> DATA_IS_IGNITED = SynchedEntityData.defineId(Creeper.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> DATA_SWELL_DIR = SynchedEntityData.defineId(UltimateCreeperEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_IS_POWERED = SynchedEntityData.defineId(UltimateCreeperEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> DATA_IS_IGNITED = SynchedEntityData.defineId(UltimateCreeperEntity.class, EntityDataSerializers.BOOLEAN);
     private int oldSwell;
     private int swell;
     private int maxSwell = 30;
@@ -43,7 +43,7 @@ public class UltimateCreeperEntity extends Creeper implements PowerableMob {
     private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
 
-    public UltimateCreeperEntity(EntityType<? extends Creeper> pEntityType, Level pLevel) {
+    public UltimateCreeperEntity(EntityType<? extends UltimateCreeperEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -55,9 +55,9 @@ public class UltimateCreeperEntity extends Creeper implements PowerableMob {
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.8D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
+
     }
 
     public static AttributeSupplier setAttributes() {
@@ -74,14 +74,9 @@ public class UltimateCreeperEntity extends Creeper implements PowerableMob {
         if (this.swell > this.maxSwell - 5) {
             this.swell = this.maxSwell - 5;
         }
-
         return flag;
     }
 
-    @Override
-    public void knockback(double pStrength, double pX, double pZ) {
-        super.knockback(pStrength, pX, pZ);
-    }
 
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -213,7 +208,6 @@ public class UltimateCreeperEntity extends Creeper implements PowerableMob {
             this.discard();
             this.spawnLingeringCloud();
         }
-
     }
 
     private void spawnLingeringCloud() {

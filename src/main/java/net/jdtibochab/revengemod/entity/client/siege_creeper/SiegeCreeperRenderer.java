@@ -16,6 +16,6 @@ public class SiegeCreeperRenderer extends CreeperRenderer{
 
     @Override
     public ResourceLocation getTextureLocation(Creeper pEntity) {
-        return new ResourceLocation(RevengeMod.MOD_ID,"textures/entity/nuclear_creeper.png");
+        return new ResourceLocation(RevengeMod.MOD_ID,"textures/entity/siege_creeper.png");
     }
 }

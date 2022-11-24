@@ -18,5 +18,7 @@
   "item.revengemod.tank_zombie_spawn_egg": "Tank Zombie Spawn Egg",
   "item.revengemod.uranium": "Uranium",
 
-  "block.revengemod.super_tnt" : "Super TNT"
+  "block.revengemod.super_tnt" : "Nuclear TNT",
+  "block.revengemod.uranium_ore" : "Uranium Ore",
+  "block.revengemod.deepslate_uranium_ore" : "Deepslate Uranium Ore"
 }

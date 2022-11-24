@@ -30,8 +30,8 @@ public class TankZombieEntity extends Zombie {
     }
     public static AttributeSupplier setAttributes() {
         return Zombie.createAttributes()
-                .add(Attributes.MOVEMENT_SPEED,0.15D)
-                .add(Attributes.MAX_HEALTH,1000.0D)
+                .add(Attributes.MOVEMENT_SPEED,0.18D)
+                .add(Attributes.MAX_HEALTH,500.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .build();
     }

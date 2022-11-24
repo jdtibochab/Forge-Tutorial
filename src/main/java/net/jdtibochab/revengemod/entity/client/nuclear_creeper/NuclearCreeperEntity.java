@@ -71,8 +71,8 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
 
     public static AttributeSupplier setAttributes() {
         return Creeper.createAttributes()
-                .add(Attributes.MOVEMENT_SPEED, 0.1f)
-                .add(Attributes.MAX_HEALTH, 1000.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.1D)
+                .add(Attributes.MAX_HEALTH, 250.0D)
                 .add(Attributes.FOLLOW_RANGE,256.0D)
                 .build();
     }
