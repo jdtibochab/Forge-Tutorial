@@ -2,6 +2,7 @@ package net.jdtibochab.revengemod.entity.client.super_tnt;
 
 import net.jdtibochab.revengemod.entity.ModEntityTypes;
 import net.jdtibochab.revengemod.misc.NuclearExplosion;
+import net.jdtibochab.revengemod.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -36,7 +37,7 @@ public class PrimedSuperTntEntity extends Entity {
         this.setPos(pX, pY, pZ);
         double d0 = pLevel.random.nextDouble() * (double)((float)Math.PI * 2F);
         this.setDeltaMovement(-Math.sin(d0) * 0.02D, (double)0.2F, -Math.cos(d0) * 0.02D);
-        this.setFuse(80);
+        this.setFuse(360); // 18 seconds
         this.xo = pX;
         this.yo = pY;
         this.zo = pZ;
@@ -99,8 +100,8 @@ public class PrimedSuperTntEntity extends Entity {
     public void explosion(@Nullable Entity pExploder, @Nullable DamageSource pDamageSource, @Nullable ExplosionDamageCalculator pContext, double pX, double pY, double pZ, float pSize, boolean pCausesFire, Explosion.BlockInteraction pMode) {
         NuclearExplosion explosion = new NuclearExplosion(this.level, pExploder, pDamageSource, pContext, pX, pY, pZ, pSize, pCausesFire, pMode);
         explosion.explode();
-        this.level.playSound((Player)null, pX,pY,pZ, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 20.0F, 0.1F);
-        this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pX,pY,pZ, 0.0D, 0.0D, 0.0D);
+        this.level.playSound((Player)null, pX,pY,pZ, ModSounds.NUCLEAR_EXPLOSION.get(), SoundSource.BLOCKS, 50.0F, 0.1F);
+        this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pX,pY,pZ, 1.0D, 0.0D, 0.0D);
         explosion.finalizeExplosion(true);
     }
 

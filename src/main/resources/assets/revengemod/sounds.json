@@ -1,0 +1,16 @@
+{
+  "nuclear_fuse": {
+    "category": "blocks",
+    "subtitle": "revengemod.nuclear_fuse",
+    "sounds": [
+      "revengemod:nuclear_fuse"
+    ]
+  },
+  "nuclear_explosion": {
+    "category": "blocks",
+    "subtitle": "revengemod.nuclear_explosion",
+    "sounds": [
+      "revengemod:nuclear_explosion"
+    ]
+  }
+}

@@ -1,9 +1,8 @@
 package net.jdtibochab.revengemod.block.custom;
 
 import net.jdtibochab.revengemod.entity.client.super_tnt.PrimedSuperTntEntity;
+import net.jdtibochab.revengemod.sound.ModSounds;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -93,7 +92,7 @@ public class SuperTntBlock extends Block {
         if (!pLevel.isClientSide) {
             PrimedSuperTntEntity primedtnt = new PrimedSuperTntEntity(pLevel, (double)pPos.getX() + 0.5D, (double)pPos.getY(), (double)pPos.getZ() + 0.5D, pEntity);
             pLevel.addFreshEntity(primedtnt);
-            pLevel.playSound((Player)null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
+            pLevel.playSound((Player)null, primedtnt.getX(), primedtnt.getY(), primedtnt.getZ(), ModSounds.NUCLEAR_FUSE.get(), SoundSource.BLOCKS, 10.0F, 1.0F);
             pLevel.gameEvent(pEntity, GameEvent.PRIME_FUSE, pPos);
         }
     }

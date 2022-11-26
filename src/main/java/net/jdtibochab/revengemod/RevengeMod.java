@@ -13,6 +13,7 @@ import net.jdtibochab.revengemod.entity.client.super_tnt.PrimedSuperTntRenderer;
 import net.jdtibochab.revengemod.entity.client.tank_zombie.TankZombieRenderer;
 import net.jdtibochab.revengemod.entity.client.ultimate_creeper.UltimateCreeperRenderer;
 import net.jdtibochab.revengemod.item.ModItems;
+import net.jdtibochab.revengemod.sound.ModSounds;
 import net.jdtibochab.revengemod.world.feature.ModConfiguredFeatures;
 import net.jdtibochab.revengemod.world.feature.ModPlacedFeatures;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -46,6 +47,7 @@ public class RevengeMod
         ModBlocks.register(modEventBus);
         ModConfiguredFeatures.register(modEventBus);
         ModPlacedFeatures.register(modEventBus);
+        ModSounds.register(modEventBus);
         // Register ourselves for server and other game events we are interested in
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);

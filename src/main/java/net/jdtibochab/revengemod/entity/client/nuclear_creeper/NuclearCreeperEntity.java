@@ -46,7 +46,6 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
     private int maxSwell = 10;
     private int explosionRadius = 30;
     private int droppedSkulls;
-
     public NuclearCreeperEntity(EntityType<? extends net.minecraft.world.entity.monster.Creeper> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }

@@ -20,5 +20,8 @@
 
   "block.revengemod.super_tnt" : "Nuclear TNT",
   "block.revengemod.uranium_ore" : "Uranium Ore",
-  "block.revengemod.deepslate_uranium_ore" : "Deepslate Uranium Ore"
+  "block.revengemod.deepslate_uranium_ore" : "Deepslate Uranium Ore",
+
+  "sounds.revengemod.nuclear_fuse" : "Nuclear Fuse",
+  "sounds.revengemod.nuclear_explosion" : "Nuclear Explosion"
 }
