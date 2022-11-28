@@ -2,8 +2,11 @@ package net.jdtibochab.revengemod.item;
 
 import net.jdtibochab.revengemod.RevengeMod;
 import net.jdtibochab.revengemod.entity.ModEntityTypes;
+import net.jdtibochab.revengemod.item.custom.AtomicArmorItem;
+import net.jdtibochab.revengemod.item.custom.HazmatArmorItem;
 import net.jdtibochab.revengemod.item.custom.UraniumItem;
-import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -11,7 +14,6 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
@@ -56,8 +58,51 @@ public class ModItems {
                     .tab(CreativeModeTab.TAB_MATERIALS)
                     .rarity(Rarity.RARE)
                     .stacksTo(1)));
+
+    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead",
+            () -> new Item(new Item.Properties()
+                    .tab(CreativeModeTab.TAB_MATERIALS)
+                    .rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot",
+            () -> new Item(new Item.Properties()
+                    .tab(CreativeModeTab.TAB_MATERIALS)
+                    .rarity(Rarity.RARE)));
+
+    // ATOMIC
+    public static final RegistryObject<Item> ATOMIC_HELMET = ITEMS.register("atomic_helmet",
+            () -> new AtomicArmorItem(ModArmorMaterials.ATOMIC, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> ATOMIC_CHESTPLATE = ITEMS.register("atomic_chestplate",
+            () -> new AtomicArmorItem(ModArmorMaterials.ATOMIC, EquipmentSlot.CHEST,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> ATOMIC_LEGGINGS = ITEMS.register("atomic_leggings",
+            () -> new AtomicArmorItem(ModArmorMaterials.ATOMIC, EquipmentSlot.LEGS,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> ATOMIC_BOOTS = ITEMS.register("atomic_boots",
+            () -> new AtomicArmorItem(ModArmorMaterials.ATOMIC, EquipmentSlot.FEET,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    // HAZMAT
+    public static final RegistryObject<Item> HAZMAT_HELMET = ITEMS.register("hazmat_helmet",
+            () -> new HazmatArmorItem(ModArmorMaterials.HAZMAT, EquipmentSlot.HEAD,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> HAZMAT_CHESTPLATE = ITEMS.register("hazmat_chestplate",
+            () -> new HazmatArmorItem(ModArmorMaterials.HAZMAT, EquipmentSlot.CHEST,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> HAZMAT_LEGGINGS = ITEMS.register("hazmat_leggings",
+            () -> new HazmatArmorItem(ModArmorMaterials.HAZMAT, EquipmentSlot.LEGS,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
+
+    public static final RegistryObject<Item> HAZMAT_BOOTS = ITEMS.register("hazmat_boots",
+            () -> new HazmatArmorItem(ModArmorMaterials.HAZMAT, EquipmentSlot.FEET,
+                    new Item.Properties().tab(CreativeModeTab.TAB_COMBAT)));
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }
-
 }

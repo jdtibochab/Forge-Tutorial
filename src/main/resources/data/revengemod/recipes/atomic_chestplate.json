@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:netherite_chestplate"
+    },
+    "#": {
+      "item": "revengemod:lead_ingot"
+    },
+    "$": {
+      "item": "revengemod:uranium"
+    }
+  },
+  "pattern": [
+    "$$$",
+    "###",
+    "XXX"
+  ],
+  "result": {
+    "item": "revengemod:atomic_chestplate"
+  }
+}

@@ -17,33 +17,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UraniumItem extends Item {
-    private int cooldown = 0;
-    private int maxCooldown = 200;
+    private int uraniumProtected;
     public UraniumItem(Properties pProperties) {
         super(pProperties);
     }
 
-//    private List getMobEffectList() {
-//        List<MobEffect> effects = new ArrayList<>();
-//        effects.add(MobEffects.POISON);
-//        effects.add(MobEffects.GLOWING);
-//        effects.add(MobEffects.NIGHT_VISION);
-//        return effects;
-//    };
-
     @Override
     public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int pSlotId, boolean pIsSelected) {
         if (!level.isClientSide) {
-            List<MobEffect> effects = new ArrayList<>();
-            effects.add(MobEffects.POISON);
-            effects.add(MobEffects.GLOWING);
-            effects.add(MobEffects.NIGHT_VISION);
-            effects.add(MobEffects.CONFUSION);
-            LivingEntity livingEntity = (LivingEntity) entity;
-            for (MobEffect e : effects){
-                if (!livingEntity.hasEffect(e)){
-                    MobEffectInstance nightVision = new MobEffectInstance(e, 100);
-                    livingEntity.addEffect(nightVision);
+            uraniumProtected = 0;
+            Iterable<ItemStack> armorSlots = entity.getArmorSlots();
+            for (ItemStack armorItemStack : armorSlots){
+                if (armorItemStack.getItem() instanceof HazmatArmorItem){
+                    uraniumProtected++;
+                }
+            }
+            if (uraniumProtected < 4){
+                List<MobEffect> effects = new ArrayList<>();
+                effects.add(MobEffects.POISON);
+                effects.add(MobEffects.GLOWING);
+                effects.add(MobEffects.NIGHT_VISION);
+                effects.add(MobEffects.CONFUSION);
+                LivingEntity livingEntity = (LivingEntity) entity;
+                for (MobEffect e : effects){
+                    if (!livingEntity.hasEffect(e)){
+                        MobEffectInstance eInstance = new MobEffectInstance(e, (int) 100 / uraniumProtected);
+                        livingEntity.addEffect(eInstance);
+                    }
                 }
             }
         }

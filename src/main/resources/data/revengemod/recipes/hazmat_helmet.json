@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:leather_helmet"
+    },
+    "#": {
+      "item": "revengemod:lead_ingot"
+    }
+  },
+  "pattern": [
+    "#X#"
+  ],
+  "result": {
+    "item": "revengemod:hazmat_helmet"
+  }
+}

@@ -32,6 +32,12 @@ public class ModBlocks {
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(6f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);
+
+    public static final RegistryObject<Block> NETHERRACK_LEAD_ORE = registerBlock("netherrack_lead_ore",
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(6f).requiresCorrectToolForDrops(),
+                    UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);
+
     public static final RegistryObject<Block> SUPER_TNT = registerBlock("super_tnt",
             () -> new SuperTntBlock(BlockBehaviour.Properties.of(Material.EXPLOSIVE)
                     .strength(1f).requiresCorrectToolForDrops()), CreativeModeTab.TAB_MISC);

@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "key": {
+    "X": [
+      {
+        "item": "minecraft:tnt"
+      }
+    ],
     "#": {
-      "item": "minecraft:tnt"
-    },
-    "X":{
-        "item": "revengemod:uranium"
+      "item": "revengemod:uranium"
     }
   },
   "pattern": [
-    "X",
-    "#"
+    "X#X",
+    "#X#",
+    "X#X"
   ],
   "result": {
-    "count": 1,
     "item": "revengemod:super_tnt"
   }
 }

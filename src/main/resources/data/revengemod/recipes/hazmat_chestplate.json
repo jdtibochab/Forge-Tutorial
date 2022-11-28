@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:leather_chestplate"
+    },
+    "#": {
+      "item": "revengemod:lead_ingot"
+    }
+  },
+  "pattern": [
+    "#X#"
+  ],
+  "result": {
+    "item": "revengemod:hazmat_chestplate"
+  }
+}

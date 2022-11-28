@@ -16,10 +16,23 @@
   "item.revengemod.face_hugger_spawn_egg": "Face Hugger Spawn Egg",
   "item.revengemod.healer_zombie_spawn_egg": "Healer Zombie Spawn Egg",
   "item.revengemod.tank_zombie_spawn_egg": "Tank Zombie Spawn Egg",
+
   "item.revengemod.uranium": "Uranium",
+  "item.revengemod.raw_lead": "Raw Lead",
+  "item.revengemod.lead_ingot": "Lead Ingot",
+
+  "item.revengemod.atomic_helmet": "Atomic Helmet",
+  "item.revengemod.atomic_chestplate": "Atomic Chestplate",
+  "item.revengemod.atomic_leggings": "Atomic Leggings",
+  "item.revengemod.atomic_boots": "Atomic Boots",
+  "item.revengemod.hazmat_helmet": "HAZMAT Helmet",
+  "item.revengemod.hazmat_chestplate": "HAZMAT Chestplate",
+  "item.revengemod.hazmat_leggings": "HAZMAT Leggings",
+  "item.revengemod.hazmat_boots": "HAZMAT Boots",
 
   "block.revengemod.super_tnt" : "Nuclear TNT",
   "block.revengemod.uranium_ore" : "Uranium Ore",
+  "block.revengemod.netherrack_lead_ore" : "Nether Lead Ore",
   "block.revengemod.deepslate_uranium_ore" : "Deepslate Uranium Ore",
 
   "sounds.revengemod.nuclear_fuse" : "Nuclear Fuse",

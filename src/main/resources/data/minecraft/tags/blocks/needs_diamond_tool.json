@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "revengemod:uranium_ore",
-    "revengemod:deepslate_uranium_ore"
+    "revengemod:deepslate_uranium_ore",
+    "revengemod:netherrack_lead_ore"
   ]
 }

@@ -82,9 +82,6 @@ public class PrimedSuperTntEntity extends Entity {
             }
         } else {
             this.updateInWaterStateAndDoFluidPushing();
-            if (this.level.isClientSide) {
-                this.level.addParticle(ParticleTypes.SMOKE, this.getX(), this.getY() + 0.5D, this.getZ(), 0.0D, 0.0D, 0.0D);
-            }
         }
 
     }

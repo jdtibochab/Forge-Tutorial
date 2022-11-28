@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 400,
+  "experience": 2.0,
+  "group": "lead",
+  "ingredient": {
+    "item": "revengemod:raw_lead"
+  },
+  "result": "revengemod:lead_ingot"
+}

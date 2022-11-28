@@ -23,9 +23,16 @@ public class ModConfiguredFeatures {
             OreConfiguration.target(OreFeatures.STONE_ORE_REPLACEABLES, ModBlocks.URANIUM_ORE.get().defaultBlockState()),
             OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPLSLATE_URANIUM_ORE.get().defaultBlockState())));
 
+        public static final Supplier<List<OreConfiguration.TargetBlockState>> NETHER_LEAD_ORES = Suppliers.memoize(() -> List.of(
+            OreConfiguration.target(OreFeatures.NETHER_ORE_REPLACEABLES, ModBlocks.NETHERRACK_LEAD_ORE.get().defaultBlockState())));
+
 
     public static final RegistryObject<ConfiguredFeature<?, ?>> URANIUM_ORE = CONFIGURED_FEATURES.register("uranium_ore",
             () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(OVERWORLD_URANIUM_ORES.get(),4,0.7F)));
+
+
+    public static final RegistryObject<ConfiguredFeature<?, ?>> NETHER_LEAD_ORE = CONFIGURED_FEATURES.register("nether_ore",
+            () -> new ConfiguredFeature<>(Feature.ORE, new OreConfiguration(NETHER_LEAD_ORES.get(),4,0.7F)));
 
 
     public static void register(IEventBus eventBus) {
