@@ -41,11 +41,12 @@ public class UraniumItem extends Item {
                 LivingEntity livingEntity = (LivingEntity) entity;
                 for (MobEffect e : effects){
                     if (!livingEntity.hasEffect(e)){
-                        MobEffectInstance eInstance = new MobEffectInstance(e, (int) 100 / uraniumProtected);
+                        MobEffectInstance eInstance = new MobEffectInstance(e, (int) 100 / (uraniumProtected + 1));
                         livingEntity.addEffect(eInstance);
                     }
                 }
             }
         }
     }
+
 }

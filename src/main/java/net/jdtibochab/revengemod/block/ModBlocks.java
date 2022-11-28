@@ -24,17 +24,17 @@ public class ModBlocks {
 
 
     public static final RegistryObject<Block> URANIUM_ORE = registerBlock("uranium_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                     .strength(6f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);
 
     public static final RegistryObject<Block> DEEPLSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                     .strength(6f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);
 
     public static final RegistryObject<Block> NETHERRACK_LEAD_ORE = registerBlock("netherrack_lead_ore",
-            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                     .strength(6f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);
 
