@@ -2,6 +2,7 @@ package net.jdtibochab.revengemod.entity.client.healer_zombie;
 
 
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -50,6 +51,13 @@ public class HealerZombieEntity extends Zombie implements RangedAttackMob {
         this.targetSelector.addGoal(2, new NearestHealableTargetGoal<>(this, IronGolem.class, true,false));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true));
         this.targetSelector.addGoal(4, new NearestHealableTargetGoal<>(this, Monster.class, true,true));
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        Potion potion = Potions.REGENERATION;
+        this.setItemSlot(EquipmentSlot.MAINHAND, PotionUtils.setPotion(new ItemStack(Items.POTION), potion));
     }
 
 
