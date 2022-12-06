@@ -12,12 +12,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class UltimateCreeperPowerLayer extends UltimateCreeperSwirlLayer<Creeper, CreeperModel<Creeper>> {
-    private final CreeperModel<Creeper> model;
+public class UltimateCreeperPowerLayer extends UltimateCreeperSwirlLayer<UltimateCreeperEntity, UltimateCreeperModel<UltimateCreeperEntity>> {
+    private final UltimateCreeperModel<UltimateCreeperEntity> model;
 
-    public UltimateCreeperPowerLayer(RenderLayerParent<Creeper, CreeperModel<Creeper>> pRenderer, EntityModelSet modelPart) {
+    public UltimateCreeperPowerLayer(RenderLayerParent<UltimateCreeperEntity, UltimateCreeperModel<UltimateCreeperEntity>> pRenderer, EntityModelSet modelPart) {
         super(pRenderer);
-        this.model = new CreeperModel<>(modelPart.bakeLayer(ModelLayers.CREEPER_ARMOR));
+        this.model = new UltimateCreeperModel<>(modelPart.bakeLayer(ModelLayers.CREEPER_ARMOR));
     }
 
     protected float xOffset(float v) {
@@ -28,7 +28,7 @@ public class UltimateCreeperPowerLayer extends UltimateCreeperSwirlLayer<Creeper
         return new ResourceLocation(RevengeMod.MOD_ID,"textures/entity/ultimate_creeper_armor.png");
     }
 
-    protected EntityModel<Creeper> model() {
+    protected EntityModel<UltimateCreeperEntity> model() {
         return this.model;
     }
 }

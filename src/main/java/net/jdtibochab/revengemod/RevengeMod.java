@@ -17,6 +17,7 @@ import net.jdtibochab.revengemod.sound.ModSounds;
 import net.jdtibochab.revengemod.world.feature.ModConfiguredFeatures;
 import net.jdtibochab.revengemod.world.feature.ModPlacedFeatures;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -83,6 +84,7 @@ public class RevengeMod
             SpawnPlacements.register(ModEntityTypes.TANK_ZOMBIE.get(),
                     SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                     Monster::checkMonsterSpawnRules);
+
         });
     }
 

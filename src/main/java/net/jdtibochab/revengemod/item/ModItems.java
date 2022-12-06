@@ -1,7 +1,6 @@
 package net.jdtibochab.revengemod.item;
 
 import net.jdtibochab.revengemod.RevengeMod;
-import net.jdtibochab.revengemod.block.ModBlocks;
 import net.jdtibochab.revengemod.entity.ModEntityTypes;
 import net.jdtibochab.revengemod.item.custom.AtomicArmorItem;
 import net.jdtibochab.revengemod.item.custom.HazmatArmorItem;

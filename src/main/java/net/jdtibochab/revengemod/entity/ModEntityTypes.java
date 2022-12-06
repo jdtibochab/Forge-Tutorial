@@ -42,7 +42,7 @@ public class ModEntityTypes {
 
     public static final RegistryObject<EntityType<UltimateCreeperEntity>> ULTIMATE_CREEPER =
                 ENTITY_TYPES.register("ultimate_creeper",
-                        () -> EntityType.Builder.of(UltimateCreeperEntity::new, MobCategory.MONSTER)
+                        () -> EntityType.Builder.<UltimateCreeperEntity>of(UltimateCreeperEntity::new, MobCategory.MONSTER)
                                 .sized(0.6f*1.2f,1.7f*1.2f)
                                 .build(new ResourceLocation(RevengeMod.MOD_ID, "ultimate_creeper").toString()));
     public static final RegistryObject<EntityType<SniperSkeletonEntity>> SNIPER_SKELETON =
@@ -66,7 +66,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<TankZombieEntity>> TANK_ZOMBIE =
                 ENTITY_TYPES.register("tank_zombie",
                         () -> EntityType.Builder.of(TankZombieEntity::new, MobCategory.MONSTER)
-                                .sized(0.6f*2.0f,1.95f*2.0f)
+                                .sized(1.4f,2.7f)
                                 .build(new ResourceLocation(RevengeMod.MOD_ID, "tank_zombie").toString()));
 
     public static final RegistryObject<EntityType<PrimedSuperTntEntity>> SUPER_TNT =

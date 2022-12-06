@@ -12,7 +12,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
 @OnlyIn(Dist.CLIENT)
 public class SanicCreeperRenderer extends MobRenderer<Creeper, CreeperModel<Creeper>> {
 

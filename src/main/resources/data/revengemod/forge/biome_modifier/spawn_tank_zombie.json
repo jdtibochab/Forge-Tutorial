@@ -3,8 +3,8 @@
   "biomes": "#minecraft:is_overworld",
   "spawners": {
     "type": "revengemod:tank_zombie",
-    "weight": 0.5,
+    "weight": 1,
     "minCount": 1,
-    "maxCount": 3
+    "maxCount": 1
   }
 }

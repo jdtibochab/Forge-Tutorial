@@ -1,5 +1,6 @@
 package net.jdtibochab.revengemod.entity.client.nuclear_creeper;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -123,6 +124,15 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
 
     }
 
+    private void spawnParticles(Level level){
+        for(int i = 0; i < 360; i++){
+            if(i % 10 == 0){
+                level.addParticle(ParticleTypes.EXPLOSION,this.getX(), this.getY(), this.getZ(),
+                        Math.cos(i) * 75.0D, 75.0D, Math.sin(i) + 75.0D);
+            }
+        }
+    }
+
     /**
      * Called to update the entity's position/logic.
      */
@@ -146,6 +156,7 @@ public class NuclearCreeperEntity extends Creeper implements PowerableMob {
 
             if (this.swell >= this.maxSwell) {
                 this.swell = this.maxSwell;
+                this.spawnParticles(this.level);
                 this.explodeCreeper();
             }
         }

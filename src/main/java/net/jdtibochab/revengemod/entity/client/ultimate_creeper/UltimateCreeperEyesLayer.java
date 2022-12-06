@@ -11,10 +11,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class UltimateCreeperEyesLayer<T extends LivingEntity> extends EyesLayer<T, CreeperModel<T>> {
+public class UltimateCreeperEyesLayer<T extends LivingEntity> extends EyesLayer<T, UltimateCreeperModel<T>> {
     private static final RenderType SANIC_CREEPER_EYES = RenderType.eyes(new ResourceLocation(RevengeMod.MOD_ID,"textures/entity/sanic_creeper_eyes.png"));
 
-    public UltimateCreeperEyesLayer(RenderLayerParent<T, CreeperModel<T>> aSuper) {
+    public UltimateCreeperEyesLayer(RenderLayerParent<T, UltimateCreeperModel<T>> aSuper) {
         super(aSuper);
     }
 

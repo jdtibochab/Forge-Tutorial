@@ -5,9 +5,13 @@ import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.jdtibochab.revengemod.entity.client.super_tnt.PrimedSuperTntEntity;
+import net.jdtibochab.revengemod.sound.ModSounds;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -78,8 +82,14 @@ public class NuclearExplosion extends Explosion {
         return (ExplosionDamageCalculator)(pEntity == null ? EXPLOSION_DAMAGE_CALCULATOR : new EntityBasedExplosionDamageCalculator(pEntity));
     }
 
+    private int casualtyCount;
+    public int getCasualties(){
+        return casualtyCount;
+    }
+
     @Override
     public void explode() {
+        casualtyCount = 0;
         this.level.gameEvent(this.source, GameEvent.EXPLODE, new Vec3(this.x, this.y, this.z));
         Set<BlockPos> set = Sets.newHashSet();
         int i = 16;
@@ -154,6 +164,7 @@ public class NuclearExplosion extends Explosion {
                         double d14 = 1.0D;
                         double d10 = (1.0D - d12) * d14;
                         entity.hurt(this.getDamageSource(), (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f2 + 1.0D)));
+                        casualtyCount++;
                         double d11 = d10;
                         if (entity instanceof LivingEntity) {
                             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity)entity, d10);
@@ -170,14 +181,18 @@ public class NuclearExplosion extends Explosion {
                 }
             }
         }
-
+//        Minecraft.getInstance().player.sendSystemMessage(
+//                Component.literal(
+//                        "A nuclear bomb detonated.\nCasualties: " + String.valueOf(this.getCasualties() + ".")
+//                )
+//        );
     }
 
     @Override
     public void finalizeExplosion(boolean pSpawnParticles) {
-        if (this.level.isClientSide) {
-            this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
-        }
+//        if (this.level.isClientSide) {
+//            this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
+//        }
 
         boolean flag = this.blockInteraction != NuclearExplosion.BlockInteraction.NONE;
         if (pSpawnParticles) {

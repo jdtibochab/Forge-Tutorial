@@ -28,7 +28,7 @@ public class ModBlocks {
                     .strength(6f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);
 
-    public static final RegistryObject<Block> DEEPLSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore",
+    public static final RegistryObject<Block> DEEPSLATE_URANIUM_ORE = registerBlock("deepslate_uranium_ore",
             () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.HEAVY_METAL)
                     .strength(6f).requiresCorrectToolForDrops(),
                     UniformInt.of(3, 7)), CreativeModeTab.TAB_MATERIALS);

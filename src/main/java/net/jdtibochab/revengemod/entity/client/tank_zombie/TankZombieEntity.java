@@ -2,17 +2,20 @@ package net.jdtibochab.revengemod.entity.client.tank_zombie;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,13 +27,15 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 
 public class TankZombieEntity extends Zombie {
+    private static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(TankZombieEntity.class, EntityDataSerializers.BYTE);
+
 
     public TankZombieEntity(EntityType<? extends Zombie> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
     public static AttributeSupplier setAttributes() {
         return Zombie.createAttributes()
-                .add(Attributes.MOVEMENT_SPEED,0.18D)
+                .add(Attributes.MOVEMENT_SPEED,0.40D)
                 .add(Attributes.MAX_HEALTH,500.0D)
                 .add(Attributes.ATTACK_DAMAGE, 6.0D)
                 .build();
@@ -54,7 +59,15 @@ public class TankZombieEntity extends Zombie {
     @Override
     public void tick() {
         super.tick();
+        if (!this.level.isClientSide) {
+            this.setClimbing(this.horizontalCollision);
+        }
         this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+    }
+
+    @Override
+    protected boolean isSunSensitive() {
+        return false;
     }
 
     @Override
@@ -86,23 +99,34 @@ public class TankZombieEntity extends Zombie {
         }
     }
 
-//    @Override
-//    protected void populateDefaultEquipmentSlots(RandomSource pRandom, DifficultyInstance pDifficulty) {
-//        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(Items.SHIELD));
-//        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.NETHERITE_SWORD));
-//        this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.DIAMOND_HELMET));
-//        this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.DIAMOND_CHESTPLATE));
-//        this.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.DIAMOND_LEGGINGS));
-//        this.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.DIAMOND_BOOTS));
-//    }
-//
-//    @Override
-//    protected void enchantSpawnedArmor(RandomSource pRandom, float pChanceMultiplier, EquipmentSlot pSlot) {
-//        this.getMainHandItem().enchant(Enchantments.VANISHING_CURSE,1);
-//        this.getOffhandItem().enchant(Enchantments.VANISHING_CURSE,1);
-//        this.getItemBySlot(EquipmentSlot.HEAD).enchant(Enchantments.VANISHING_CURSE,1);
-//        this.getItemBySlot(EquipmentSlot.CHEST).enchant(Enchantments.VANISHING_CURSE,1);
-//        this.getItemBySlot(EquipmentSlot.LEGS).enchant(Enchantments.VANISHING_CURSE,1);
-//        this.getItemBySlot(EquipmentSlot.FEET).enchant(Enchantments.VANISHING_CURSE,1);
-//    }
+    // Climbing
+    @Override
+    protected PathNavigation createNavigation(Level pLevel) {
+        return new WallClimberNavigation(this, pLevel);
+    }
+
+    public boolean isClimbing() {
+        return (this.entityData.get(DATA_FLAGS_ID) & 1) != 0;
+    }
+
+    public void setClimbing(boolean pClimbing) {
+        byte b0 = this.entityData.get(DATA_FLAGS_ID);
+        if (pClimbing) {
+            b0 = (byte)(b0 | 1);
+        } else {
+            b0 = (byte)(b0 & -2);
+        }
+
+        this.entityData.set(DATA_FLAGS_ID, b0);
+    }
+
+    public boolean onClimbable() {
+        return this.isClimbing();
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_FLAGS_ID, (byte)0);
+    }
 }

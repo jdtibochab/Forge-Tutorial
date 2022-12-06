@@ -5,6 +5,7 @@ import net.jdtibochab.revengemod.misc.NuclearExplosion;
 import net.jdtibochab.revengemod.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -59,6 +60,15 @@ public class PrimedSuperTntEntity extends Entity {
         return !this.isRemoved();
     }
 
+    private void spawnParticles(){
+        for(int i = 0; i < 360; i++){
+            if(i % 10 == 0){
+                this.level.addParticle(ParticleTypes.EXPLOSION,this.getX(), this.getY(), this.getZ(),
+                        Math.cos(i) * 100.0D, 100.0D, Math.sin(i) + 100.0D);
+            }
+        }
+    }
+
     /**
      * Called to update the entity's position/logic.
      */
@@ -75,7 +85,11 @@ public class PrimedSuperTntEntity extends Entity {
 
         int i = this.getFuse() - 1;
         this.setFuse(i);
+        if (i <= 3) { // To account for client-side lag (one tick lost or something)
+            spawnParticles();
+        }
         if (i <= 0) {
+            this.level.playSound(null,this.getX(), this.getY(), this.getZ(), ModSounds.NUCLEAR_EXPLOSION.get(), SoundSource.BLOCKS, 100.0F, 1.0F);
             this.discard();
             if (!this.level.isClientSide) {
                 this.explode();
@@ -83,9 +97,7 @@ public class PrimedSuperTntEntity extends Entity {
         } else {
             this.updateInWaterStateAndDoFluidPushing();
         }
-
     }
-
     public void explode(){
         explosion(this, this.getX(), this.getY(0.0625D), this.getZ(), 50.0F, false, Explosion.BlockInteraction.BREAK);
     }
@@ -97,8 +109,6 @@ public class PrimedSuperTntEntity extends Entity {
     public void explosion(@Nullable Entity pExploder, @Nullable DamageSource pDamageSource, @Nullable ExplosionDamageCalculator pContext, double pX, double pY, double pZ, float pSize, boolean pCausesFire, Explosion.BlockInteraction pMode) {
         NuclearExplosion explosion = new NuclearExplosion(this.level, pExploder, pDamageSource, pContext, pX, pY, pZ, pSize, pCausesFire, pMode);
         explosion.explode();
-        this.level.playSound((Player)null, pX,pY,pZ, ModSounds.NUCLEAR_EXPLOSION.get(), SoundSource.BLOCKS, 50.0F, 0.1F);
-        this.level.addParticle(ParticleTypes.EXPLOSION_EMITTER, pX,pY,pZ, 1.0D, 0.0D, 0.0D);
         explosion.finalizeExplosion(true);
     }
 
