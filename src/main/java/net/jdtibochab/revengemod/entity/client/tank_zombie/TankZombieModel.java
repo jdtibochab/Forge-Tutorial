@@ -1,10 +1,12 @@
 package net.jdtibochab.revengemod.entity.client.tank_zombie;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.IronGolemModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.IronGolem;
 
@@ -54,8 +56,15 @@ public class TankZombieModel<T extends TankZombieEntity> extends HierarchicalMod
     }
 
     public void prepareMobModel(T pEntity, float pLimbSwing, float pLimbSwingAmount, float pPartialTick) {
-//        int i = pEntity.getAttackAnimationTick();
-//        this.rightArm.xRot = -2.0F + 1.5F * Mth.triangleWave((float)i - pPartialTick, 10.0F);
-//        this.leftArm.xRot = -2.0F + 1.5F * Mth.triangleWave((float)i - pPartialTick, 10.0F);
+        int i = pEntity.getAttackAnimationTick();
+        if (i > 0) {
+            System.out.println("Attack");
+            System.out.println(i);
+            this.rightArm.xRot = -2.0F + 1.5F * Mth.triangleWave((float)i - pPartialTick, 10.0F);
+            this.leftArm.xRot = -2.0F + 1.5F * Mth.triangleWave((float)i - pPartialTick, 10.0F);
+        } else {
+            this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(pLimbSwing, 13.0F)) * pLimbSwingAmount;
+            this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(pLimbSwing, 13.0F)) * pLimbSwingAmount;
+        }
     }
 }

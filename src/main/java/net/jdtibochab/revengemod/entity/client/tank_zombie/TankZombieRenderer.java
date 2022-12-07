@@ -21,16 +21,4 @@ public class TankZombieRenderer extends MobRenderer<TankZombieEntity, TankZombie
     public ResourceLocation getTextureLocation(TankZombieEntity pEntity) {
         return GOLEM_LOCATION;
     }
-//    @Override
-//    public ResourceLocation getTextureLocation(Zombie pEntity) {
-//        return new ResourceLocation(RevengeMod.MOD_ID,"textures/entity/tank_zombie.png");
-//    }
-
-//    @Override
-//    protected void scale(IronGolem pLivingEntity, PoseStack pMatrixStack, float pPartialTickTime) {
-//        float f = 0.9375F;
-//        f *= 2.0F;
-//        this.shadowRadius = 0.25F;
-//        pMatrixStack.scale(f, f, f);
-//    }
 }
