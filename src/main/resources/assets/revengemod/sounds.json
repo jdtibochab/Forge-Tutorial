@@ -10,5 +10,50 @@
     "sounds": [
       "revengemod:nuclear_explosion"
     ]
+  },
+  "ultimate_ambient": {
+    "subtitle": "revengemod.ultimate_ambient",
+    "sounds": [
+      "revengemod:ultimate_creeper_idle_1",
+      "revengemod:ultimate_creeper_idle_2",
+      "revengemod:ultimate_creeper_idle_3",
+      "revengemod:ultimate_creeper_idle_4",
+      "revengemod:ultimate_creeper_idle_5"
+    ]
+  },
+  "ultimate_fuse": {
+    "subtitle": "revengemod.ultimate_fuse",
+    "sounds": [
+      "revengemod:ultimate_fuse"
+    ]
+  },
+  "ultimate_music": {
+    "subtitle": "revengemod.ultimate_music",
+    "sounds": [
+      "revengemod:ultimate_music"
+    ]
+  },
+  "tank_ambient": {
+    "subtitle": "revengemod.tank_ambient",
+    "sounds": [
+      "revengemod:tank_ambient_1",
+      "revengemod:tank_ambient_2",
+      "revengemod:tank_ambient_3",
+      "revengemod:tank_ambient_4"
+    ]
+  },
+  "tank_attack": {
+    "subtitle": "revengemod.tank_attack",
+    "sounds": [
+      "revengemod:tank_attack_1"
+    ]
+  },
+  "tank_hurt": {
+    "subtitle": "revengemod.tank_hurt",
+    "sounds": [
+      "revengemod:tank_hurt_1",
+      "revengemod:tank_hurt_2",
+      "revengemod:tank_hurt_3"
+    ]
   }
 }

@@ -1,6 +1,7 @@
 package net.jdtibochab.revengemod.entity.client.ultimate_creeper;
 
 import net.jdtibochab.revengemod.entity.ModEntityTypes;
+import net.jdtibochab.revengemod.sound.ModSounds;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
@@ -94,6 +96,10 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
                 .build();
     }
 
+    @Override
+    public void checkDespawn() {
+    }
+
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
         boolean flag = super.causeFallDamage(pFallDistance, pMultiplier, pSource);
         this.swell += (int)(pFallDistance * 1.5F);
@@ -170,7 +176,7 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
 
             int i = this.getSwellDir();
             if (i > 0 && this.swell == 0) {
-                this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
+                this.playSound(ModSounds.ULTIMATE_FUSE.get(), 1.0F, 1.0F);
                 this.gameEvent(GameEvent.PRIME_FUSE);
             }
 
@@ -238,6 +244,7 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
             Explosion.BlockInteraction explosion$blockinteraction = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
             float f = this.isPowered() ? 2.0F : 1.0F;
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius * f, explosion$blockinteraction);
+            this.playSound(ModSounds.NUCLEAR_EXPLOSION.get(),5.0f,1.0f);
             this.dead = true;
             this.discard();
             if (this.ultimateLevel > 1){
@@ -285,5 +292,25 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
 
     public void increaseDroppedSkulls() {
         ++this.droppedSkulls;
+    }
+
+    // Sound
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.ULTIMATE_AMBIENT.get();
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 5.0f;
+    }
+
+    @Override
+    public void playAmbientSound() {
+        SoundEvent soundevent = this.getAmbientSound();
+        if (soundevent != null) {
+            this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
+            this.playSound(ModSounds.ULTIMATE_MUSIC.get(),this.getSoundVolume(), this.getVoicePitch());
+        }
     }
 }

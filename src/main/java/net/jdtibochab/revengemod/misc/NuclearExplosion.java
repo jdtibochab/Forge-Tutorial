@@ -13,6 +13,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -163,10 +165,12 @@ public class NuclearExplosion extends Explosion {
                         d9 /= d13;
                         double d14 = 1.0D;
                         double d10 = (1.0D - d12) * d14;
-                        entity.hurt(this.getDamageSource(), (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f2 + 1.0D)));
-                        casualtyCount++;
+                        boolean flag = entity.hurt(this.getDamageSource(), (float)((int)((d10 * d10 + d10) / 2.0D * 7.0D * (double)f2 + 1.0D)));
                         double d11 = d10;
                         if (entity instanceof LivingEntity) {
+                            if (flag){
+                                casualtyCount++;
+                            }
                             d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity)entity, d10);
                         }
 
@@ -181,11 +185,16 @@ public class NuclearExplosion extends Explosion {
                 }
             }
         }
-//        Minecraft.getInstance().player.sendSystemMessage(
-//                Component.literal(
-//                        "A nuclear bomb detonated.\nCasualties: " + String.valueOf(this.getCasualties() + ".")
-//                )
-//        );
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+            player.sendSystemMessage(
+                Component.literal(
+                        "A nuclear bomb detonated.\n-Casualties: "
+                                + String.valueOf(this.getCasualties())
+                                + "\n-Ground Zero: "
+                                + String.valueOf(this.getPosition())
+                ));
+        }
     }
 
     @Override

@@ -14,9 +14,20 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> NUCLEAR_FUSE =
             registerSoundEvent("nuclear_fuse");
-
-        public static final RegistryObject<SoundEvent> NUCLEAR_EXPLOSION =
-            registerSoundEvent("nuclear_explosion");
+    public static final RegistryObject<SoundEvent> NUCLEAR_EXPLOSION =
+        registerSoundEvent("nuclear_explosion");
+    public static final RegistryObject<SoundEvent> ULTIMATE_AMBIENT =
+        registerSoundEvent("ultimate_ambient");
+    public static final RegistryObject<SoundEvent> ULTIMATE_FUSE =
+        registerSoundEvent("ultimate_fuse");
+    public static final RegistryObject<SoundEvent> ULTIMATE_MUSIC =
+        registerSoundEvent("ultimate_music");
+    public static final RegistryObject<SoundEvent> TANK_AMBIENT =
+        registerSoundEvent("tank_ambient");
+    public static final RegistryObject<SoundEvent> TANK_ATTACK =
+        registerSoundEvent("tank_attack");
+    public static final RegistryObject<SoundEvent> TANK_HURT =
+        registerSoundEvent("tank_hurt");
 
 
 

@@ -1,14 +1,10 @@
 package net.jdtibochab.revengemod.entity.client.tank_zombie;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.IronGolemModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.animal.IronGolem;
 
 public class TankZombieModel<T extends TankZombieEntity> extends HierarchicalModel<T> {
     private final ModelPart root;
