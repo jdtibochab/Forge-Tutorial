@@ -55,10 +55,7 @@
     "minecraft:deep_dark",
 
     "minecraft:nether_wastes",
-    "minecraft:soul_sand_valley",
-    "minecraft:crimson_forest",
-    "minecraft:warped_forest",
-    "minecraft:basalt_deltas"
+    "minecraft:crimson_forest"
   ],
   "spawners": {
     "type": "revengemod:tank_zombie",

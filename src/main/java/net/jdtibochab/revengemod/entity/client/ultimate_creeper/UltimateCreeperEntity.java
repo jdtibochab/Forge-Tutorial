@@ -8,13 +8,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -50,7 +47,7 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
     private final int avgLevel = 3;
     private final double stdDevLevel = 1.5D;
 
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+//    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
 
     public UltimateCreeperEntity(EntityType<? extends UltimateCreeperEntity> pEntityType, Level pLevel) {
@@ -145,14 +142,14 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
         if (pCompound.getBoolean("ignited")) {
             this.ignite();
         }
-        if (this.hasCustomName()) {
-            this.bossEvent.setName(this.getDisplayName());
-        }
+//        if (this.hasCustomName()) {
+//            this.bossEvent.setName(this.getDisplayName());
+//        }
     }
 
     public void setCustomName(@Nullable Component pName) {
         super.setCustomName(pName);
-        this.bossEvent.setName(this.getDisplayName());
+//        this.bossEvent.setName(this.getDisplayName());
     }
 
     private void spawnParticles(Level level){
@@ -191,19 +188,19 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
                 this.explodeCreeper();
             }
         }
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+//        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         super.tick();
     }
 
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
+//        this.bossEvent.addPlayer(player);
     }
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
+//        this.bossEvent.removePlayer(player);
     }
 
     public boolean isPowered() {

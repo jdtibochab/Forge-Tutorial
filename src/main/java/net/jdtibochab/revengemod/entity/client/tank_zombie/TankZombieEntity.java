@@ -6,16 +6,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.RandomSource;
-import net.minecraft.util.TimeUtil;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.BossEvent;
-import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -30,24 +25,15 @@ import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraftforge.event.entity.living.ZombieEvent;
-import net.minecraftforge.fluids.FluidType;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -57,11 +43,14 @@ public class TankZombieEntity extends Zombie {
     private int attackAnimationTick;
 
     private double shakeDistance = 5.0D;
+    private double pullDistance = 3.0D;
 
     private static final UniformInt SHAKE_INTERVAL = rangeOfTicks(4,6);
+    private static final UniformInt PULL_INTERVAL = rangeOfTicks(100,200);
     private static final UniformInt ALERT_INTERVAL = rangeOfTicks(80,120);
     private int shakeTick;
     private int alertTick;
+    private int pullTick;
 
 
     public TankZombieEntity(EntityType<? extends Zombie> pEntityType, Level pLevel) {
@@ -100,19 +89,52 @@ public class TankZombieEntity extends Zombie {
     }
 
 
-    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+//    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        if (this.hasCustomName()) {
-            this.bossEvent.setName(this.getDisplayName());
-        }
+//        if (this.hasCustomName()) {
+//            this.bossEvent.setName(this.getDisplayName());
+//        }
     }
 
     public void setCustomName(@Nullable Component pName) {
         super.setCustomName(pName);
-        this.bossEvent.setName(this.getDisplayName());
+//        this.bossEvent.setName(this.getDisplayName());
+    }
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.level.isClientSide) {
+            this.setClimbing(this.horizontalCollision);
+        }
+
+        if (this.isClimbing()){
+            if (shakeTick <= 0){
+                shakeSurroundingEntities(0.15D);
+                shakeTick = SHAKE_INTERVAL.sample(this.random);
+            } else{
+                --shakeTick;
+            }
+        }
+
+        if (this.alertTick <=0){
+            alertOthers();
+            alertTick = ALERT_INTERVAL.sample(this.random);
+        } else {
+            --alertTick;
+        }
+
+        if (pullTick <= 0){
+            pullTarget(3.0D);
+            pullTick = PULL_INTERVAL.sample(this.random);
+        } else {
+            --pullTick;
+        }
+
+        this.floatTank();
+//        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     protected AABB getTargetSearchArea() {
@@ -120,7 +142,7 @@ public class TankZombieEntity extends Zombie {
         return this.getBoundingBox().inflate(pTargetDistance, pTargetDistance, pTargetDistance);
     }
 
-    public void shakeSurroundingEntities(){
+    public void shakeSurroundingEntities(double strength){
         List<LivingEntity> entities = this.level.getEntitiesOfClass(LivingEntity.class,this.getTargetSearchArea());
         for (LivingEntity entity : entities){
             if (entity == this || entity.getY() <= this.getY() + 1.0D){
@@ -128,15 +150,16 @@ public class TankZombieEntity extends Zombie {
             }
             double d = Math.sqrt(this.distanceToSqr(entity.getX(), this.getY(), entity.getZ())); // 2D distance
             if (d <= shakeDistance){
-                double m = 0.15D;
                 double f;
                 f  = Math.random()/Math.nextDown(1.0);
-                double x = (-m)*(1.0 - f) + (m)*f;
+                double x = (-strength)*(1.0 - f) + (strength)*f;
                 f  = Math.random()/Math.nextDown(1.0);
-                double z = (-m)*(1.0 - f) + (m)*f;
-                entity.setDeltaMovement(x,0.0D,z);
+                double z = (-strength)*(1.0 - f) + (strength)*f;
+                Vec3 dV = new Vec3(x,0.0D,z);
+                entity.setDeltaMovement(entity.getDeltaMovement().add(dV));
             }
         }
+        this.playSound(SoundEvents.WARDEN_STEP, 2.0F, 0.5F);
     }
 
     public static UniformInt rangeOfTicks(int pMinInclusive,int pMaxInclusive){
@@ -155,32 +178,20 @@ public class TankZombieEntity extends Zombie {
         }
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (!this.level.isClientSide) {
-            this.setClimbing(this.horizontalCollision);
+    private void pullTarget(double strength) {
+        LivingEntity target = this.getTarget();
+        if (target == null
+                || Math.sqrt(this.distanceToSqr(target.getX(),this.getY(),target.getZ())) < pullDistance){
+            return;
         }
-
-        if (this.isClimbing()){
-            if (shakeTick <= 0){
-                shakeSurroundingEntities();
-                shakeTick = SHAKE_INTERVAL.sample(this.random);
-            } else{
-                --shakeTick;
-            }
-        }
-
-        if (this.alertTick <=0){
-            alertTick = ALERT_INTERVAL.sample(this.random);
-            alertOthers();
-        } else {
-            --alertTick;
-        }
-
-        this.floatTank();
-        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        Vec3 dV = new Vec3(this.getX() - target.getX(),0.0D,this.getZ() - target.getZ())
+                .normalize()
+                .multiply(strength,0.0D,strength);
+        target.hurtMarked = true;
+        target.setDeltaMovement(target.getDeltaMovement().add(dV));
+        this.playSound(ModSounds.TANK_ATTACK.get(), 1.0F, 5.0F);
     }
+
     @Override
     protected boolean isSunSensitive() {
         return false;
@@ -189,31 +200,18 @@ public class TankZombieEntity extends Zombie {
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
         super.startSeenByPlayer(player);
-        this.bossEvent.addPlayer(player);
+//        this.bossEvent.addPlayer(player);
     }
     @Override
     public void stopSeenByPlayer(ServerPlayer player) {
         super.stopSeenByPlayer(player);
-        this.bossEvent.removePlayer(player);
+//        this.bossEvent.removePlayer(player);
     }
 
 
     @Override
     public void knockback(double pStrength, double pX, double pZ) {
-        double tank_strength = 10;
-        net.minecraftforge.event.entity.living.LivingKnockBackEvent event = net.minecraftforge.common.ForgeHooks.onLivingKnockBack(this, (float) pStrength, pX, pZ);
-        if(event.isCanceled()) return;
-        pStrength = event.getStrength();
-        pX = event.getRatioX();
-        pZ = event.getRatioZ();
-        pStrength *= 1.0D - this.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
-        pStrength /= tank_strength;
-        if (!(pStrength <= 0.0D)) {
-            this.hasImpulse = true;
-            Vec3 vec3 = this.getDeltaMovement();
-            Vec3 vec31 = (new Vec3(pX, 0.0D, pZ)).normalize().scale(pStrength);
-            this.setDeltaMovement(vec3.x / 2.0D - vec31.x, this.onGround ? Math.min(0.4D, vec3.y / 2.0D + pStrength) : vec3.y, vec3.z / 2.0D - vec31.z);
-        }
+        return;
     }
     // Attack animation
     @Override
