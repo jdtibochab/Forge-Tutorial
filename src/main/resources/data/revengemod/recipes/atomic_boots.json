@@ -2,19 +2,19 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "minecraft:netherite_boots"
+      "item": "minecraft:netherite_ingot"
     },
     "#": {
-      "item": "revengemod:lead_ingot"
+      "item": "minecraft:diamond"
     },
     "$": {
       "item": "revengemod:uranium"
     }
   },
   "pattern": [
-    "$$$",
-    "###",
-    "XXX"
+    "$ $",
+    "# #",
+    "X X"
   ],
   "result": {
     "item": "revengemod:atomic_boots"
