@@ -62,7 +62,7 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
         this.yo = pY;
         this.zo = pZ;
         this.ultimateLevel = ultimateLevel;
-        setCustomName(Component.literal(this.getDisplayName().getString() + " Power " + (this.ultimateLevel)));
+        setCustomName(Component.literal(this.getDisplayName().getString() + " Power " + (this.getUltimateLevel())));
     }
 
     protected void registerGoals() {
@@ -81,7 +81,7 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @org.jetbrains.annotations.Nullable SpawnGroupData pSpawnData, @org.jetbrains.annotations.Nullable CompoundTag pDataTag) {
         this.ultimateLevel = Math.max((int)Math.round(random.nextGaussian() * stdDevLevel) + avgLevel, 1);
-        setCustomName(Component.literal(this.getDisplayName().getString() + " Power " + (this.ultimateLevel)));
+        setCustomName(Component.literal(this.getDisplayName().getString() + " Power " + (this.getUltimateLevel())));
         return super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
     }
 
@@ -150,6 +150,10 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
     public void setCustomName(@Nullable Component pName) {
         super.setCustomName(pName);
 //        this.bossEvent.setName(this.getDisplayName());
+    }
+
+    public int getUltimateLevel(){
+        return this.ultimateLevel;
     }
 
     private void spawnParticles(Level level){
@@ -244,8 +248,8 @@ public class UltimateCreeperEntity extends Monster implements PowerableMob {
             this.playSound(ModSounds.NUCLEAR_EXPLOSION.get(),5.0f,1.0f);
             this.dead = true;
             this.discard();
-            if (this.ultimateLevel > 1){
-                this.level.addFreshEntity(new UltimateCreeperEntity(this.level,this.getX(),this.getY(),this.getZ(),this.ultimateLevel - 1, this.getHealth()));
+            if (this.getUltimateLevel() > 1){
+                this.level.addFreshEntity(new UltimateCreeperEntity(this.level,this.getX(),this.getY(),this.getZ(),this.getUltimateLevel() - 1, this.getHealth()));
             } else{
                 this.spawnLingeringCloud();
             }

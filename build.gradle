@@ -21,7 +21,7 @@ apply plugin: 'maven-publish'
 //    id 'maven-publish'
 //}
 
-version = '1.19.2-0.1.24'
+version = '1.19.2-0.1.25'
 group = 'net.jdtibochab.revengemod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'revengemod'
 

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:compass"
+    },
+    "#": {
+      "item": "minecraft:copper_ingot"
+    },
+    "$": {
+      "item": "revengemod:lead_ingot"
+    }
+  },
+  "pattern": [
+    "$",
+    "#",
+    "X"
+  ],
+  "result": {
+    "item": "revengemod:radiation_counter"
+  }
+}

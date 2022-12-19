@@ -4,6 +4,7 @@ import net.jdtibochab.revengemod.RevengeMod;
 import net.jdtibochab.revengemod.entity.ModEntityTypes;
 import net.jdtibochab.revengemod.item.custom.AtomicArmorItem;
 import net.jdtibochab.revengemod.item.custom.HazmatArmorItem;
+import net.jdtibochab.revengemod.item.custom.RadiationCounterItem;
 import net.jdtibochab.revengemod.item.custom.UraniumItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
@@ -18,6 +19,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, RevengeMod.MOD_ID);
 
+    // SPAWN EGGS
     public static final RegistryObject<Item> SANIC_CREEPER_SPAWN_EGG = ITEMS.register("sanic_creeper_spawn_egg",
             () -> new ForgeSpawnEggItem(ModEntityTypes.SANIC_CREEPER, 0x22b341,0x19732e,
                     new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
@@ -50,6 +52,7 @@ public class ModItems {
             () -> new ForgeSpawnEggItem(ModEntityTypes.TANK_ZOMBIE, 0x22b341,0x19732e,
                     new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
+    // NEW MATERIALS
     public static final RegistryObject<Item> URANIUM = ITEMS.register("uranium",
             () -> new UraniumItem(new Item.Properties()
                     .tab(CreativeModeTab.TAB_MATERIALS)
@@ -61,11 +64,16 @@ public class ModItems {
                     .tab(CreativeModeTab.TAB_MATERIALS)
                     .fireResistant()
                     .rarity(Rarity.RARE)));
-
     public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot",
             () -> new Item(new Item.Properties()
                     .tab(CreativeModeTab.TAB_MATERIALS)
                     .fireResistant()
+                    .rarity(Rarity.RARE)));
+
+    // ADVANCED ITEMS
+    public static final RegistryObject<Item> RADIATION_COUNTER = ITEMS.register("radiation_counter",
+            () -> new RadiationCounterItem(new Item.Properties()
+                    .tab(CreativeModeTab.TAB_TOOLS)
                     .rarity(Rarity.RARE)));
 
     // ATOMIC
